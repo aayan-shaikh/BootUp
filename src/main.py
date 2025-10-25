@@ -70,22 +70,213 @@ def main():
     with open(f"{project_name}/src/pages/index.astro", "w") as index_astro:
         index_astro.write(
             r"""---
-// Welcome to Astro! Everything between these triple-dash code fences
-// is your "component frontmatter". It never runs in the browser.
-console.log('This runs in your terminal, not the browser!');
+const title = "Your Site Title";
+const description = "A minimal, production-ready Astro template";
 ---
-<!-- Below is your "component template." It's just HTML, but with
-    some magic sprinkled in to help you build great templates. -->
-<html>
-<body>
-    <h1>Hello, World!</h1>
-</body>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>Your Brand</h1>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <h2>Welcome</h2>
+        <p>A minimal, production-ready template</p>
+        <button id="cta">Get Started</button>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+        <p>Built with vanilla HTML, CSS, and JavaScript.</p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <form id="contact-form">
+          <input type="email" placeholder="Your email" required />
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} Your Brand. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
+
 <style>
-h1 {
-    color: orange;
-}
-</style>"""
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #3b82f6;
+    --text: #1f2937;
+    --bg: #ffffff;
+    --gray: #6b7280;
+  }
+  #cta {
+    margin-top: 1rem;
+  }
+
+  body {
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  header {
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--text);
+    transition: color 0.3s;
+  }
+
+  nav a:hover {
+    color: var(--primary);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  section {
+    min-height: 50vh;
+    padding: 4rem 2rem;
+  }
+
+  .hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  button:hover {
+    opacity: 0.9;
+  }
+
+  form {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+  }
+
+  input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background: #f9fafb;
+    color: var(--gray);
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    nav ul {
+      gap: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    form {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const cta = document.getElementById("cta");
+  const form = document.getElementById("contact-form");
+
+  cta?.addEventListener("click", () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  });
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Form submitted!");
+    form.reset();
+  });
+</script>
+"""
         )
 
     if pkg_manager == "1":
